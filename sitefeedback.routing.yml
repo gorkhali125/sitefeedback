@@ -1,0 +1,38 @@
+sitefeedback.admin_form:
+  path: '/admin/sitefeedback'
+  defaults:
+    _form: '\Drupal\sitefeedback\Form\SiteFeedbackAdminForm'
+    _title: 'Manage Site Feedback'
+  requirements:
+    _permission: 'manage site feedback'
+
+sitefeedback.create_form:
+  path: '/admin/sitefeedback/add'
+  defaults:
+    _form: '\Drupal\sitefeedback\Form\SiteFeedbackForm'
+    _title: 'Provide Feedback'
+  requirements:
+    _permission: 'provide site feedback'
+
+sitefeedback.view_feedback:
+  path: '/admin/sitefeedback/{id}/view'
+  defaults:
+    _controller: '\Drupal\sitefeedback\Controller\SiteFeedbackViewController:viewFeedback'
+    _title: 'Feedback Details'
+  requirements:
+    _permission: 'manage site feedback'
+
+sitefeedback.delete_feedback:
+  path: '/admin/sitefeedback/{id}/delete'
+  defaults:
+    _form: '\Drupal\sitefeedback\Form\SiteFeedbackDeleteForm'
+    _title: 'Feedback Details'
+  requirements:
+    _permission: 'manage site feedback'
+
+sitefeedback.bulk_actions:
+  path: '/admin/sitefeedback/bulkaction'
+  defaults:
+    _controller : '\Drupal\sitefeedback\Controller\SiteFeedbackBulkActionController::bulkAction'
+  requirements:
+    _permission: 'manage site feedback'

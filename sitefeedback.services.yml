@@ -1,0 +1,4 @@
+services:
+  sitefeedback.service:
+    class: Drupal\sitefeedback\Service\SiteFeedbackService
+    arguments: []

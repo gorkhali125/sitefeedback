@@ -1,0 +1,5 @@
+name: 'Site Feedback'
+type: module
+description: 'Site Feedback allows users to provide any feedback/suggestions regarding the system.'
+core: 8.x
+version: 8.x-1.0

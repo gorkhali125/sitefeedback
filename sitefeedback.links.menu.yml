@@ -1,0 +1,6 @@
+sitefeedback.list:
+  title: 'Site feedback list'
+  route_name: sitefeedback.admin_form
+  description: 'Overview of site feedback sent by users.'
+  parent: system.admin_reports
+  weight: 100

@@ -1,0 +1,53 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function sitefeedback_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the sitefeedback module.
+    case 'help.page.sitefeedback':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module is used to provide site feedback to admins of a system.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function sitefeedback_theme($existing, $type, $theme, $path) {
+  return [
+    'feedback_view' => [
+      'variables' => ['feedback' => NULL],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_page_bottom().
+ */
+function sitefeedback_page_bottom(array &$page_bottom) {
+
+  //Attach add feedback button to bottom right of the page if the current user has access.
+  if (Drupal::currentUser()->hasPermission('provide site feedback')) {
+    $addLink = '<a class="use-ajax feedback-add-btn"
+          data-dialog-options="{&quot;width&quot;:400}"
+          data-dialog-type="modal"
+          href="/admin/sitefeedback/add"><span>'
+      . t('Feedback') .
+      '</span></a>';
+
+    $page_bottom['site_feedback'] = [
+      '#markup' => $addLink,
+    ];
+
+    $page_bottom['#attached']['library'][] = 'sitefeedback/sitefeedbackadmin';
+  }
+
+}

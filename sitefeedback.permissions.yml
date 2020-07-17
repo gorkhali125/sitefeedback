@@ -1,0 +1,9 @@
+manage site feedback:
+  title: 'Manage Site Feedback'
+  description: 'Allow to access the feedback listing page.'
+  restrict access: true
+
+provide site feedback:
+  title: 'Provide Site Feedback'
+  description: 'Allow to provide site feedback.'
+  restrict access: true

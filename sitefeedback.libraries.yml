@@ -1,0 +1,17 @@
+sitefeedbackadmin:
+  version: 1.x
+  js:
+    js/sitefeedbackadmin.js: {}
+  css:
+    theme:
+      css/sitefeedbackadmin.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal.dialog.ajax
+    - core/drupal.message
+
+global-styling:
+  version: 1.x
+  css:
+    theme:
+      css/sitefeedback.css: {}

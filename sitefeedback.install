@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function sitefeedback_schema() {
+  $schema['sitefeedback'] = [
+    'description' => 'Table that contains site feedback from all users.',
+    'fields' => [
+      'sfid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique feedback id.',
+      ],
+      'uid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid of the user who created the feedback. 0 for Anonymous users',
+      ],
+      'name' => [
+        'type' => 'varchar_ascii',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Name of the user who submitted the feedback.',
+      ],
+      'email' => [
+        'type' => 'varchar_ascii',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Email of the user who submitted the feedback.',
+      ],
+      'message' => [
+        'type' => 'text',
+        'not null' => TRUE,
+        'size' => 'big',
+        'description' => 'Text of feedback message.',
+      ],
+      'status' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The status of the feedback. i.e. Published, Done, etc.',
+      ],
+      'created' => [
+        'type' => 'int',
+        'size' => 'big',
+        'not null'=> TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when feedback was created.',
+      ],
+      'changed' => [
+        'type' => 'int',
+        'size' => 'big',
+        'not null'=> TRUE,
+        'default' => 0,
+        'description' => 'Timestamp when feedback was edited.',
+      ],
+    ],
+    'primary key' => ['sfid'],
+    'indexes' => [
+      'email' => ['email'],
+      'uid' => ['uid'],
+    ],
+  ];
+
+  return $schema;
+}

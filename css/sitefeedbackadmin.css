@@ -1,0 +1,49 @@
+.feedback-mark-done-btn,
+.feedback-delete-btn {
+  cursor: pointer;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #ccc;
+  padding: 7px;
+  text-decoration: none;
+}
+
+.feedback-mark-done-btn:hover,
+.feedback-delete-btn:hover {
+  background-color: #ccb;
+  text-decoration: none;
+}
+
+.feedback-add-btn,
+.feedback-add-btn:hover{
+  width: 40px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  color: green;
+  position: fixed;
+  top: 72%;
+  right: 0;
+  border: none;
+  height: 115px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.feedback-add-btn span,
+.feedback-add-btn span:hover{
+  font-size: 17px;
+  font-weight: 600;
+  left: -25px;
+  bottom: 46px;
+  display: block;
+  position: absolute;
+  transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+}
+
+.feedback-add-btn:hover{
+  color: #0a6eb4;
+}

@@ -1,0 +1,15 @@
+{{ attach_library('sitefeedback/global-styling') }}
+<div class="container feedback-individual-view">
+  <div class="feedback-detail">
+    <div class="feedback-name feedback-item"><p><b>{{ "Name"|t }}</b>: {{ feedback.name }}</p></div>
+    <div class="feedback-email feedback-item"><p><b>{{ "Email"|t }}</b>: {{ feedback.email }}</p></div>
+    <div class="feedback-status feedback-item"><p><b>{{ "Status"|t }}</b>: {{ feedback.status == 0 ? 'In Progress'|t : 'Done'|t }}</p></div>
+    <div class="feedback-user feedback-item"><p><b>{{ "System User"|t }}</b>: {{ feedback.username }}</p></div>
+    <div class="feedback-created feedback-item"><p><b>{{ "Created"|t }}</b>: {{ feedback.created|date }}</p></div>
+    <div class="feedback-message feedback-item"><p><b>{{ "Message"|t }}</b>: <br>{{ feedback.message|nl2br }}</p></div>
+  </div>
+
+  <div class="feedback-reply replybtn">
+    <a href="mailto:{{ feedback.email }}">{{ "Reply"|t }}</a>
+  </div>
+</div>
