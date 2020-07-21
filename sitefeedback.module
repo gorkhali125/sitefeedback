@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Module file.
+ */
+
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -34,7 +39,8 @@ function sitefeedback_theme($existing, $type, $theme, $path) {
  */
 function sitefeedback_page_bottom(array &$page_bottom) {
 
-  //Attach add feedback button to bottom right of the page if the current user has access.
+  // Attach add feedback button to bottom right of the page if the current
+  // user has access.
   if (Drupal::currentUser()->hasPermission('provide site feedback')) {
     $addLink = '<a class="use-ajax feedback-add-btn"
           data-dialog-options="{&quot;width&quot;:400}"

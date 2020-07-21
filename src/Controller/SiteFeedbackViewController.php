@@ -2,19 +2,39 @@
 
 namespace Drupal\sitefeedback\Controller;
 
-
 use Drupal\user\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Class SiteFeedbackViewController.
+ *
+ * @package Drupal\sitefeedback\Controller
+ */
 class SiteFeedbackViewController {
 
+  /**
+   * Feedback Service.
+   *
+   * @var mixed
+   */
   private $feedbackService;
 
+  /**
+   * Constructor. Initialize a feedback service.
+   */
   public function __construct() {
     $this->feedbackService = \Drupal::service('sitefeedback.service');
   }
 
-
+  /**
+   * Individual view feedback page callback.
+   *
+   * @param int $id
+   *   The id of feedback.
+   *
+   * @return array
+   *   The theme of individual feedback
+   */
   public function viewFeedback($id) {
     if (!$this->feedbackService->feedbackExists($id)) {
       throw new NotFoundHttpException();

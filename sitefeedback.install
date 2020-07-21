@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Schemas and all the required fields.
+ */
+
+/**
  * Implements hook_schema().
  */
 function sitefeedback_schema() {
@@ -48,14 +53,14 @@ function sitefeedback_schema() {
       'created' => [
         'type' => 'int',
         'size' => 'big',
-        'not null'=> TRUE,
+        'not null' => TRUE,
         'default' => 0,
         'description' => 'Timestamp when feedback was created.',
       ],
       'changed' => [
         'type' => 'int',
         'size' => 'big',
-        'not null'=> TRUE,
+        'not null' => TRUE,
         'default' => 0,
         'description' => 'Timestamp when feedback was edited.',
       ],

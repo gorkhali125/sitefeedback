@@ -7,6 +7,11 @@ namespace Drupal\sitefeedback\Service;
  */
 class SiteFeedbackService {
 
+  /**
+   * The database connection holder.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
   private $database;
 
   /**
@@ -17,13 +22,17 @@ class SiteFeedbackService {
   }
 
   /**
-   * @param $feedback
+   * Save a feedback.
+   *
+   * @param array $feedback
+   *   Feedback array.
    *
    * @return \Drupal\Core\Database\StatementInterface|int|null
+   *   Feedback save status.
+   *
    * @throws \Exception
-   * Save a feedback
    */
-  public function saveFeedback($feedback){
+  public function saveFeedback(array $feedback) {
     $is_new = !isset($feedback['sfid']);
 
     $feedback['uid'] = \Drupal::currentUser()->id();
@@ -42,12 +51,15 @@ class SiteFeedbackService {
   }
 
   /**
-   * @param $id
+   * Check if a feedback exists or not.
+   *
+   * @param int $id
+   *   Feedback id.
    *
    * @return bool
-   * Check if a feedback exists or not by id
+   *   True or False.
    */
-  public function feedbackExists($id){
+  public function feedbackExists($id) {
     $query = $this->database->select('sitefeedback', 'sf');
     $query->fields('sf', ['sfid']);
     $query->condition('sf.sfid', $id);
@@ -57,12 +69,15 @@ class SiteFeedbackService {
   }
 
   /**
-   * @param $id
+   * Load a feedback by id.
+   *
+   * @param int $id
+   *   Feedback id.
    *
    * @return mixed
-   * Load a feedback by id
+   *   The loaded feedback or empty array.
    */
-  public function loadFeedback($id){
+  public function loadFeedback($id) {
     $query = $this->database->select('sitefeedback', 'sf');
     $query->fields('sf');
     $query->condition('sf.sfid', $id);
@@ -72,27 +87,33 @@ class SiteFeedbackService {
   }
 
   /**
-   * @param $ids
+   * Delete feedback by ids.
+   *
+   * @param array $ids
+   *   Feedback ids.
    *
    * @return int
-   * Delete feedback by ids
+   *   The delete status.
    */
-  public function deleteFeedback($ids = []){
+  public function deleteFeedback(array $ids = []) {
     return $this->database->delete('sitefeedback')
       ->condition('sfid', $ids, 'IN')
       ->execute();
   }
 
   /**
+   * Update status of feedback as Done.
+   *
    * @param array $ids
+   *   Feedback ids.
    *
    * @return \Drupal\Core\Database\StatementInterface|int|string|null
-   * Update status of feedback as Done
+   *   The update status.
    */
-  public function updateFeedbackStatus($ids = []){
+  public function updateFeedbackStatus(array $ids = []) {
     return $this->database->update('sitefeedback')
       ->fields([
-        'status' => 1
+        'status' => 1,
       ])
       ->condition('sfid', $ids, 'IN')
       ->execute();

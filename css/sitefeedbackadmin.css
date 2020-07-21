@@ -15,7 +15,7 @@
 }
 
 .feedback-add-btn,
-.feedback-add-btn:hover{
+.feedback-add-btn:hover {
   width: 40px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -31,7 +31,7 @@
 }
 
 .feedback-add-btn span,
-.feedback-add-btn span:hover{
+.feedback-add-btn span:hover {
   font-size: 17px;
   font-weight: 600;
   left: -25px;
@@ -44,6 +44,6 @@
   -webkit-transform: rotate(-90deg);
 }
 
-.feedback-add-btn:hover{
+.feedback-add-btn:hover {
   color: #0a6eb4;
 }
