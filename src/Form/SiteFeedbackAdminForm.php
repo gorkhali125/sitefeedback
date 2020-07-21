@@ -8,12 +8,15 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
- * Class TestForm.
+ * Class SiteFeedbackAdminForm.
+ *
+ * @package Drupal\sitefeedback\Form
  */
 class SiteFeedbackAdminForm extends FormBase {
 
-  private $database;
-
+  /**
+   * Constructor.
+   */
   public function __construct() {
 
   }
@@ -30,7 +33,7 @@ class SiteFeedbackAdminForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $this->database = \Drupal::database();
+    $database = \Drupal::database();
 
     $markDone = '<a class="feedback-mark-done-btn" data-operation="mark_done">'
       . $this->t('Mark as Done') .
@@ -80,7 +83,7 @@ class SiteFeedbackAdminForm extends FormBase {
       'operations' => ['data' => $this->t('Actions')],
     ];
 
-    $query = $this->database->select('sitefeedback', 'sf')
+    $query = $database->select('sitefeedback', 'sf')
       ->extend('Drupal\Core\Database\Query\TableSortExtender')
       ->extend('Drupal\Core\Database\Query\PagerSelectExtender');
     $query->fields('sf');
@@ -88,7 +91,7 @@ class SiteFeedbackAdminForm extends FormBase {
       ->orderByHeader($header)
       ->limit(25);
 
-    $count_query = $this->database->select('sitefeedback', 'sf');
+    $count_query = $database->select('sitefeedback', 'sf');
     $count_query->addExpression('COUNT(*)');
 
     $userInput = $form_state->getUserInput();

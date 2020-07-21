@@ -10,15 +10,24 @@ use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 /**
  * Class TestForm.
  */
 class SiteFeedbackForm extends FormBase {
 
+  /**
+   * Feedback service.
+   *
+   * @var mixed
+   */
   private $feedbackService;
 
+  /**
+   * Feedback Form Constructor. Show page not found if the request isn't ajax.
+   */
   public function __construct() {
-    //Check if the request is not via ajax. If not via ajax, return not found
+    // Check if the request is not via ajax. If not via ajax, return not found.
     if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
       throw new NotFoundHttpException();
     }
@@ -110,7 +119,7 @@ class SiteFeedbackForm extends FormBase {
 
     $email = $form_values['email'];
     if (!empty($email) && !\Drupal::service('email.validator')
-        ->isValid($email)) {
+      ->isValid($email)) {
       $form_state->setErrorByName('email', 'Please enter a valid email.');
     }
   }
@@ -122,6 +131,9 @@ class SiteFeedbackForm extends FormBase {
 
   }
 
+  /**
+   * Feedback submit form.
+   */
   public function feedbackSubmit(array &$form, FormStateInterface $form_state) {
     $errors = $form_state->getErrors();
     $required_fields = ['name', 'email', 'message'];
@@ -144,22 +156,23 @@ class SiteFeedbackForm extends FormBase {
     else {
       $form_values = $form_state->getValues();
 
-      //Prepare the feedback array
+      // Prepare the feedback array.
       $feedback = [];
       $feedback['name'] = Html::escape($form_values['name']);
       $feedback['email'] = Html::escape($form_values['email']);
       $feedback['message'] = Html::escape($form_values['message']);
 
-      //Save the feedback object
+      // Save the feedback object.
       $saved_feedback = $this->feedbackService->saveFeedback($feedback);
       if ($saved_feedback) {
         \Drupal::messenger()->addStatus($this->t('Feedback submitted successfully.'));
-      }else{
+      }
+      else {
         \Drupal::messenger()->addError($this->t('Some error occurred while saving the feedback.'));
       }
-      $status_messages = array(
+      $status_messages = [
         '#type' => 'status_messages',
-      );
+      ];
       $ajaxResponse->addCommand(new AppendCommand('.region-highlighted', $status_messages));
       $ajaxResponse->addCommand(new CloseModalDialogCommand());
     }

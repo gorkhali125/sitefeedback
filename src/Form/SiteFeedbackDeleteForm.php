@@ -2,9 +2,7 @@
 
 namespace Drupal\sitefeedback\Form;
 
-
 use Drupal\Core\Form\ConfirmFormBase;
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -14,8 +12,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class SiteFeedbackDeleteForm extends ConfirmFormBase {
 
+  /**
+   * Feedback Service.
+   *
+   * @var mixed
+   */
   private $feedbackService;
 
+  /**
+   * {@inheritdoc}
+   */
   public function __construct() {
     $this->feedbackService = \Drupal::service('sitefeedback.service');
   }
@@ -44,14 +50,14 @@ class SiteFeedbackDeleteForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $id = NULL){
-    if(!$this->feedbackService->feedbackExists($id)){
+  public function buildForm(array $form, FormStateInterface $form_state, $id = NULL) {
+    if (!$this->feedbackService->feedbackExists($id)) {
       throw new NotFoundHttpException();
     }
 
     $form['id'] = [
       '#type' => 'item',
-      '#value' => $id
+      '#value' => $id,
     ];
 
     return parent::buildForm($form, $form_state);
@@ -62,10 +68,11 @@ class SiteFeedbackDeleteForm extends ConfirmFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_values = $form_state->getValues();
-    if($form_values['confirm']){
-      if($this->feedbackService->deleteFeedback([$form_values['id']])){
+    if ($form_values['confirm']) {
+      if ($this->feedbackService->deleteFeedback([$form_values['id']])) {
         \Drupal::messenger()->addMessage($this->t('Feedback deleted successfully.'));
-      }else{
+      }
+      else {
         \Drupal::messenger()->addError($this->t('Some error occurred while deleting feedback.'));
       }
       $url = Url::fromRoute('sitefeedback.admin_form');
